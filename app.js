@@ -2,7 +2,7 @@ const express = require ('express');
 const fileUpload = require ('express-fileupload');
 const path = require ('path');
 const bodyParser = require ('body-parser');
-const exphbs = require ('express-handlebars');
+const handlebars = require ('express-handlebars');
 const mongose = require ('mongoose');
 const flash = require ('connect-flash');
 const session = require ('express-session');
@@ -67,8 +67,20 @@ const rootDir = path.dirname (process.mainModule.filename);
 app.use (express.static (path.join (rootDir, 'public')));
 
 // configure handlebar
-app.engine ('.hbs', exphbs ());
+const helper = require("./config/helper").helper;
+app.engine(
+  ".hbs",
+  handlebars({
+    extname: ".hbs",
+    defaultLayout: "main",
+    partialsDir: path.join(__dirname, "views/partials"),
+    layoutsDir: path.join(__dirname, "views/layouts"),
+    helpers: helper,
+  })
+);
+
 app.set ('view engine', '.hbs');
+app.set("views", path.join(__dirname, "views"));
 
 // Routes
 app.use ('/', require ('./routes/index.js'));
@@ -76,17 +88,3 @@ app.use ('/admin', require ('./routes/admins.js'));
 app.use ('/api', require ('./routes/API.js'));
 
 app.listen (PORT, console.log (`Server started on port ${PORT}`));
-var hbs = require ('handlebars');
-//helper
-hbs.registerHelper ('isSelected_genre', function (select, id) {
-  return select === id ? 'selected' : '';
-});
-hbs.registerHelper ('isSelected_prodution', function (select, id) {
-  return select === id ? 'selected' : '';
-});
-hbs.registerHelper ('isSelected_category', function (select, options) {
-  return options
-    .fn (this)
-    .replace (new RegExp (' value="' + select + '"'), '$& selected="selected"');
-});
-
