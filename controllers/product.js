@@ -2,7 +2,7 @@ const Producer = require ('../models/producer');
 const Product = require ('../models/product');
 const Genre = require ('../models/genre');
 const {v4: uuidv4} = require ('uuid');
-var fs = require ('fs');
+let fs = require ('fs');
 
 exports.getProducts = (req, res) => {
   Product.find ({}).then (products => {
@@ -211,7 +211,6 @@ exports.postProductCreate = async (req, res) => {
               producer,
               price,
               activeProducts: true,
-
               user: req.user.toJSON (),
             });
           }
@@ -278,7 +277,6 @@ exports.postProductEdit = (req, res) => {
       });
     });
   } else {
-    console.log;
     if (req.files) {
       let uploadedFile = req.files.image;
       let uploadedFile2 = req.files.image2;

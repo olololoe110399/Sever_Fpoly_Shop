@@ -1,7 +1,7 @@
 const {v4: uuidv4} = require ('uuid');
 const Customer = require ('../models/customer');
 const bcypt = require ('bcryptjs');
-var fs = require ('fs');
+let fs = require ('fs');
 
 exports.getCustomers = (req, res, next) => {
   Customer.find ({}).then (customers => {
@@ -67,7 +67,6 @@ exports.postCustomer = async (req, res, next) => {
           address,
           phone,
           activeCustomers: true,
-
           user: req.user.toJSON (),
         });
       } else {

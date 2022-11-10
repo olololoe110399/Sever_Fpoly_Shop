@@ -1,7 +1,7 @@
 const Admin = require ('../models/admin');
 const bcypt = require ('bcryptjs');
 const passport = require ('passport');
-var fs = require ('fs');
+let fs = require ('fs');
 
 exports.getSigninPage = (req, res) => {
   res.render ('sign_in');
@@ -99,7 +99,6 @@ exports.postProfile = (req, res) => {
       Admin.findById (id).then (admin => {
         if (!admin) {
           res.redirect ('profile');
-          return;
         } else {
           uploadedFile.mv (`public/img/${image_name}`, err => {
             if (err) throw err;

@@ -1,7 +1,7 @@
 const express = require ('express');
 const router = express.Router ();
-const controllerCustomer = require ('../controllersAPI/customers');
-const controllerProduct = require ('../controllersAPI/product');
+const controllerCustomer = require ('../controllers/customers');
+const controllerProduct = require("../controllers/product");
 module.exports = router;
 // Customer
 router.post ('/sign_in', controllerCustomer.checkLogin);

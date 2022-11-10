@@ -1,13 +1,13 @@
-const express = require ('express');
-const fileUpload = require ('express-fileupload');
-const path = require ('path');
-const bodyParser = require ('body-parser');
-const handlebars = require ('express-handlebars');
-const mongose = require ('mongoose');
-const flash = require ('connect-flash');
-const session = require ('express-session');
-const PORT = process.env.PORT || 5000;
-const passport = require ('passport');
+const express = require ('express'),
+ fileUpload = require ('express-fileupload'),
+ path = require ('path'),
+ bodyParser = require ('body-parser'),
+ handlebars = require ('express-handlebars'),
+ mongose = require ('mongoose'),
+ flash = require ('connect-flash'),
+ session = require ('express-session'),
+ PORT = process.env.PORT || 5000,
+ passport = require ('passport');
 
 const app = express ();
 
@@ -85,6 +85,6 @@ app.set("views", path.join(__dirname, "views"));
 // Routes
 app.use ('/', require ('./routes/index.js'));
 app.use ('/admin', require ('./routes/admins.js'));
-app.use ('/api', require ('./routes/API.js'));
+app.use ('/api', require ('./api/v1/routes/index.js'));
 
 app.listen (PORT, console.log (`Server started on port ${PORT}`));
